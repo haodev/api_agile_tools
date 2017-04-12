@@ -1,0 +1,3 @@
+get_story:
+    path: /story/{id}
+    defaults: { _controller: StoryBundle:Story:get }

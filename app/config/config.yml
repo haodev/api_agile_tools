@@ -82,3 +82,10 @@ fos_rest:
         default_format: json
     serializer:
         serialize_null: true
+
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    orm:
+        default:
+            timestampable: true
+            sluggable: true

@@ -11,9 +11,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class StoryController extends FOSRestController
 {
     /**
-     * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function getAction(Request $request)
     {
         $author = new \stdClass();
         $author->name = 'fifi';
