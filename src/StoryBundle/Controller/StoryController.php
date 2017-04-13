@@ -7,23 +7,18 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use StoryBundle\Entity\Story;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class StoryController extends FOSRestController
 {
     /**
+     * @Rest\View()
+     *
+     * @ParamConverter("story", options={"mapping": {"story_id": "slug"}})
      */
-    public function getAction(Request $request)
+    public function getAction(Story $story)
     {
-        $author = new \stdClass();
-        $author->name = 'fifi';
-        $author->firstName = 'riri';
-
-        $test = new \stdClass();
-        $test->name = 'toto';
-        $test->complexity = 5;
-        $test->author = $author;
-        $test->comments = [];
-
-        return new JsonResponse(['data' => $test]);
+        return $story;
     }
 }

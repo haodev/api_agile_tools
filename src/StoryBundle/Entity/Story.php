@@ -4,12 +4,15 @@ namespace StoryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Jms;
 
 /**
  * Story
  *
  * @ORM\Table(name="story")
  * @ORM\Entity(repositoryClass="StoryBundle\Repository\StoryRepository")
+ *
+ * @Jms\ExclusionPolicy("none")
  */
 class Story
 {
@@ -19,6 +22,8 @@ class Story
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
+     * @Jms\Type("int")
      */
     private $id;
 
@@ -44,13 +49,6 @@ class Story
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="text")
-     */
-    private $title;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createAt", type="datetime")
@@ -61,8 +59,8 @@ class Story
     /**
      * @var string
      * 
-     * @Gedmo\Slug(fields={"id"})
-     * @Gedmo\Prefix("story")
+     * @ORM\Column(name="slug", type="text")
+     * @Gedmo\Slug(fields={"id"}, prefix="story-")
      */
     private $slug;
 
