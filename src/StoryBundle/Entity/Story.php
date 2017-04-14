@@ -5,6 +5,8 @@ namespace StoryBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Jms;
+use CommonBundle\Entity\Timestampable;
+use CommonBundle\Entity\Author;
 
 /**
  * Story
@@ -12,10 +14,12 @@ use JMS\Serializer\Annotation as Jms;
  * @ORM\Table(name="story")
  * @ORM\Entity(repositoryClass="StoryBundle\Repository\StoryRepository")
  *
- * @Jms\ExclusionPolicy("none")
  */
 class Story
 {
+
+    use Timestampable;
+
     /**
      * @var int
      *
@@ -23,7 +27,9 @@ class Story
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * @Jms\Type("int")
+     * @Jms\Groups({"story-get"})
+     * @Jms\Accessor(getter="getSlug", setter="setSlug")
+     * @Jms\Type("string")
      */
     private $id;
 
@@ -31,6 +37,9 @@ class Story
      * @var string
      *
      * @ORM\Column(name="title", type="text")
+     *
+     * @Jms\Groups({"story-get"})
+     * @Jms\Type("string")
      */
     private $title;
 
@@ -38,6 +47,9 @@ class Story
      * @var int
      *
      * @ORM\Column(name="complexity", type="integer")
+     *
+     * @Jms\Groups({"story-get"})
+     * @Jms\Type("int")
      */
     private $complexity;
 
@@ -45,16 +57,22 @@ class Story
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     *
+     * @Jms\Groups({"story-get"})
+     * @Jms\Type("string")
      */
     private $description;
 
     /**
-     * @var \DateTime
+     * @var Author
      *
-     * @ORM\Column(name="createAt", type="datetime")
-     * @Gedmo\Timestampable(on="create")
+     * @ORM\ManyToOne(targetEntity="CommonBundle\Entity\Author", inversedBy="stories")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     *
+     * @Jms\Groups({"story-get"})
      */
-    private $createAt;
+    private $author;
+
 
     /**
      * @var string
@@ -124,30 +142,6 @@ class Story
     }
 
     /**
-     * Set createAt
-     *
-     * @param \DateTime $createAt
-     *
-     * @return Story
-     */
-    public function setCreateAt($createAt)
-    {
-        $this->createAt = $createAt;
-
-        return $this;
-    }
- 
-    /**
-     * Get createAt
-     *
-     * @return \DateTime
-     */
-    public function getCreateAt()
-    {
-        return $this->createAt;
-    }
-
-    /**
      * Get complexity
      *
      * @return int
@@ -191,6 +185,30 @@ class Story
     public function setSlug($slug)
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get authors
+     *
+     * @return Author
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set Author
+     *
+     * @param Author $author
+     *
+     * @return Story
+     */
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
 
         return $this;
     }

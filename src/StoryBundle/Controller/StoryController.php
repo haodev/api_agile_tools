@@ -13,12 +13,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class StoryController extends FOSRestController
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"story-get", "timestampable", "author"})
      *
      * @ParamConverter("story", options={"mapping": {"story_id": "slug"}})
      */
     public function getAction(Story $story)
     {
         return $story;
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"story-get", "timestampable", "author"})
+     */
+    public function listAction(Request $request)
+    {
+        $data = $this->getDoctrine()->getRepository('StoryBundle:Story')->findAll();
+
+        return $data;
     }
 }

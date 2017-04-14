@@ -1,3 +1,7 @@
 get_story:
     path: /story/{story_id}
     defaults: { _controller: StoryBundle:Story:get }
+
+list_story:
+    path: /story
+    defaults: { _controller: StoryBundle:Story:list }

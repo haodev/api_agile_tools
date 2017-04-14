@@ -15,12 +15,14 @@ class LoadStoryData implements FixtureInterface
 				'title' => 'First story',
 				'complexity' => 2,
 				'description' => 'This is a short description of the first story',
+				'author' => ['lastname' => 'Riri', 'firstname' => 'Fifi'],
 				'slug' => '1'
 			],
 			[
 				'title' => 'Second story',
 				'complexity' => 5,
 				'description' => 'This is a short description of the second story',
+				'author' => ['lastname' => 'Toto', 'firstname' => 'Titi'],
 				'slug' => '2'
 			]
 		];
